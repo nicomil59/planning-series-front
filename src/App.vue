@@ -1,11 +1,6 @@
 <template>
   <div>
-    <NavBar />
-    <!-- <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link v-if="!loggedIn" to="/login">Login</router-link>
-    </nav> -->
+    <!-- <NavBar /> -->
     <router-view />
   </div>
 </template>
@@ -14,12 +9,12 @@
   import {
     mapGetters
   } from 'vuex';
-  import NavBar from "@/components/NavBar.vue";
+  // import NavBar from "@/components/NavBar.vue";
 
   export default {
     name: "app",
     components: {
-      NavBar
+      // NavBar
     },
     computed: {
       ...mapGetters(['loggedIn'])

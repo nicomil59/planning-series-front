@@ -32,6 +32,15 @@ export default createStore({
     setLogout({ commit }) {
       commit('SET_LOGOUT')
     },
+    checkToken({ commit }) {
+      if(localStorage.getItem("token")) {
+        commit('SET_LOGIN')
+
+      } else {
+        console.log('pas de token')
+        commit('SET_LOGOUT')
+      }
+    }
   },
   modules: {
   }

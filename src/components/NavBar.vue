@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-sm navbar-light bg-white">
-        <div class="container-fluid">
+        <div class="container">
             <router-link to="/" class="navbar-brand">Home</router-link>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,11 +40,15 @@
                 this.$router.push('/login');
             }
         },
+        beforeMount() {
+            this.$store.dispatch('checkToken');
+        }
     }
 </script>
 
 <style scoped>
-    .btn-logout, .btn-login {
+    .btn-logout,
+    .btn-login {
         /* background-color: #FD5835;
         border-color: #FD5835; */
         /* color: #fff !important; */
