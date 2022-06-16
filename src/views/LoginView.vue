@@ -10,7 +10,7 @@
                 <label for="password_input" class="form-label">Password</label>
                 <input v-model="password" type="password" class="form-control" id="password_input" required>
             </div>
-            <p v-if="error" class="text-danger">Error !</p>
+            <p v-if="error" class="text-danger">{{ errorMessage }}</p>
             <button type="submit" class="btn btn-primary">Me connecter</button>
         </form>
     </div>
@@ -42,7 +42,9 @@
                     console.log(response.data);
 
                     this.error = false;
+                    this.errorMessage = '';
 
+                    localStorage.setItem('token', response.data.token);
                     this.$store.dispatch('setLogin');
                     this.$store.dispatch('setToken', response.data.token);
                     this.$router.push('/');
@@ -50,21 +52,8 @@
                 } catch (error) {
                     console.log(error.response.data);
                     this.error = true;
-                    // this.errorMessage = error.response.data.message;
+                    this.errorMessage = error.response.data.message;
                 }
-
-                // console.log(dataInput);
-
-                // this.$store.dispatch('LOGIN',  {
-                //     email: this.email,
-                //     password: this.password
-                // })
-                // .then(success => {
-                //     this.$router.push('/');
-                // })
-                // .catch(error => {
-                //     this.error = true;
-                // })
 
             },
         }

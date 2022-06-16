@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     logged: false,
-    token: ''
+    token: null
   },
   getters: {
     loggedIn(state) {
@@ -17,6 +17,10 @@ export default createStore({
     SET_TOKEN(state, token) {
       state.token = token;
     },
+    SET_LOGOUT(state) {
+      state.logged = false,
+      state.token = null
+    },
   },
   actions: {
     setLogin({ commit }) {
@@ -24,6 +28,9 @@ export default createStore({
     },
     setToken({ commit }, token) {
       commit('SET_TOKEN', token)
+    },
+    setLogout({ commit }) {
+      commit('SET_LOGOUT')
     },
   },
   modules: {
