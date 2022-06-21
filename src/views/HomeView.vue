@@ -2,7 +2,7 @@
   <div class="home">
     <!-- <h2 v-if="loggedIn" class="text-success">Connecté</h2>
     <h2 v-else class="text-danger">Pas connecté</h2> -->
-    HOME
+    <h1>HOME</h1>
   </div>
 </template>
 
