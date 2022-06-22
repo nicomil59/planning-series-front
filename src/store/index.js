@@ -6,7 +6,8 @@ import jwt_decode from "jwt-decode";
 export default createStore({
   state: {
     logged: false,
-    token: null
+    token: null,
+    programs: null
   },
   getters: {
     loggedIn(state) {
@@ -24,26 +25,24 @@ export default createStore({
       state.logged = false,
         state.token = null
     },
+    SET_PROGRAMS(state, programs) {
+      state.programs = programs;
+    },
   },
   actions: {
-    setLogin({
-      commit
-    }) {
+    setLogin({ commit }) {
       commit('SET_LOGIN')
     },
-    setToken({
-      commit
-    }, token) {
+    setToken({ commit }, token) {
       commit('SET_TOKEN', token)
     },
-    setLogout({
-      commit
-    }) {
+    setLogout({ commit }) {
       commit('SET_LOGOUT')
     },
-    checkToken({
-      commit
-    }) {
+    setPrograms({ commit }, programs) {
+      commit('SET_PROGRAMS', programs)
+    },
+    checkToken({ commit }) {
       if (localStorage.getItem("token")) {
 
         const token = localStorage.getItem("token");

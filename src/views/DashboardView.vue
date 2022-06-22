@@ -39,7 +39,7 @@
 
                     this.programs = response.data;
 
-                    // this.$store.dispatch('setPosts', response.data);
+                    this.$store.dispatch('setPrograms', response.data);
 
                 } catch (error) {
                     console.log(error);
