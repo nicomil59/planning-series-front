@@ -19,13 +19,16 @@
                     <td>{{ program.title }}</td>
                     <td>{{ program.season }}</td>
                     <td>{{ program.platform }}</td>
-                    <td><button @click="setProgramSelected" v-bind:data-programid="program._id" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                    <td>
+                        <button @click="setProgramSelected" v-bind:data-programid="program._id" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             Voir
                         </button>
                     </td>
                     <td>Modifier</td>
-                    <td>Supprimer</td>
+                    <td>
+                        <button @click="deleteProg" v-bind:data-programid="program._id" type="button" class="btn btn-danger btn-sm">Supprimer</button>
+                    </td>
                 </tr>
             </tbody>
             
@@ -74,6 +77,7 @@
 <script>
     import moment from 'moment';
     moment.locale('fr');
+    import Api from '../services/Api';
 
     export default {
         name: "ProgramListDash",
@@ -108,6 +112,34 @@
                 this.modalCountries = pgSelected.countries;
                 this.modalNote = pgSelected.note;
                 
+            },
+            async deleteProg(e) {
+                const progId = e.target.dataset.programid;
+                console.log(progId);
+                const token = this.$store.state.token;
+
+                let okToDelete = confirm('Supprimer le programme ?')
+                if(!okToDelete) {
+                    return
+                }
+
+                try {
+                    await Api.delete(`programs/${progId}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }}
+                    );
+
+                    this.$store.dispatch('deleteProgram', progId);
+
+                    alert('Programme supprimé !')
+
+                    // redirection vers la page d'inscription
+                    // this.$router.push('/signup');
+
+                } catch (error) {
+                    console.log(error.response.data);
+                }
             }
         }
     }

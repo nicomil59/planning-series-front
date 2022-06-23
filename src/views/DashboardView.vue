@@ -4,7 +4,8 @@
         <h1 class="text-center">Dashboard</h1>
         <p v-if="loggedIn" class="text-success text-center">Connecté</p>
         <p v-else class="text-danger text-center">Pas connecté</p>
-        <ProgramListDash v-bind:programs="programs" />
+        <ProgramListDash v-if="loggedIn" v-bind:programs="programs" />
+        <p v-else class="text-center">Il faut être connecté pour accéder à la liste des programmes ! 😉</p>
     </div>
 </template>
 
@@ -35,7 +36,7 @@
                 try {
                     const response = await Api.get('programs');
 
-                    console.log("Resultats appel getPrograms", response.data);
+                    // console.log("Resultats appel getPrograms", response.data);
 
                     this.programs = response.data;
 

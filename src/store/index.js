@@ -28,6 +28,10 @@ export default createStore({
     SET_PROGRAMS(state, programs) {
       state.programs = programs;
     },
+    DELETE_PROGRAM(state, progId) {
+      const index = state.programs.findIndex(prog => prog._id == progId);
+      state.programs.splice(index, 1);
+    }
   },
   actions: {
     setLogin({ commit }) {
@@ -41,6 +45,9 @@ export default createStore({
     },
     setPrograms({ commit }, programs) {
       commit('SET_PROGRAMS', programs)
+    },
+    deleteProgram({ commit }, progId) {
+      commit('DELETE_PROGRAM', progId)
     },
     checkToken({ commit }) {
       if (localStorage.getItem("token")) {
