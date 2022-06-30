@@ -6,6 +6,54 @@
         <p v-else class="text-danger text-center">Pas connecté</p>
         <ProgramListDash v-if="loggedIn" v-bind:programs="programs" />
         <p v-else class="text-center">Il faut être connecté pour accéder à la liste des programmes ! 😉</p>
+        <div v-if="loggedIn" class="container d-flex justify-content-end mt-4">
+            <button type="button" class="btn btn-outline-success btn-addprogram" data-bs-toggle="modal" data-bs-target="#modalAdd">Ajouter programme</button>
+        </div>
+
+        <!-- Modal Add -->
+        <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="modalAddLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="modalAddLabel">Ajout d'un programme</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form @submit.prevent="createProgram">
+                            <div class="mb-3">
+                                <label for="inputSchedule" class="form-label">Date</label>
+                                <input v-model="schedule" type="datetime-local" class="form-control" id="inputSchedule">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputTitle" class="form-label">Titre</label>
+                                <input v-model="title" type="text" class="form-control" id="inputTitle">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputSeason" class="form-label">Saison</label>
+                                <input v-model="season" type="text" class="form-control" id="inputSeason">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputPlatform" class="form-label">Plateforme</label>
+                                <input v-model="platform" type="text" class="form-control" id="inputPlatform">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputCountries" class="form-label">Pays</label>
+                                <input v-model="countries" type="text" class="form-control" id="inputCountries">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputNote" class="form-label">Note</label>
+                                <textarea v-model="note" type="text" class="form-control" id="inputNote"/>
+                            </div>
+                            
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Ajouter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -26,6 +74,12 @@
         data() {
             return {
                 programs: [],
+                schedule: null,
+                title: '',
+                season: '',
+                platform: '',
+                countries: [],
+                note: ''
             };
         },
         computed: {
@@ -45,6 +99,48 @@
                 } catch (error) {
                     console.log(error);
                 }
+            },
+            async createProgram() {
+                const newProgram = {
+                    schedule: this.schedule.split('T').join(' '),
+                    title: this.title,
+                    season: this.season,
+                    platform: this.platform,
+                    countries: this.countries.split(','),
+                    note: this.note
+                };
+
+                console.log('newProgram', newProgram)
+
+                const token = this.$store.state.token;
+
+                try {
+                    const response = await Api.post('programs', newProgram, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }});
+
+                    console.log(response.data);
+                    alert('nouveau programme créé !');
+
+                    try {
+                        const response = await Api.get('programs');
+
+                        console.log("récup programs après ajout program", response.data);
+
+                        this.programs = response.data;
+
+                        this.$store.dispatch('setPrograms', response.data);
+
+                    } catch (error) {
+                        console.log(error.response.data);
+                    }
+
+                } catch (error) {
+                    console.log(error.response.data);
+                }
+
             }
         },
         async beforeMount() {
@@ -53,6 +149,9 @@
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+    .btn-addprogram {
+        border-radius: 24px;
+        border-width: 2px;
+    }
 </style>

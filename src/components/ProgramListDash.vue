@@ -1,48 +1,50 @@
 <template>
     <div class="container mt-3">
-        <h2 class="text-center">Liste des programmes</h2>
-        <table class="table table-striped table-hover table-borderless align-middle fs-5">
-            <thead>
-                <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Titre</th>
-                    <th scope="col">Saison</th>
-                    <th scope="col">Plateforme</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(program) in programs" :key="program._id">
-                    <th scope="row">{{ formatTime(program.schedule) }}</th>
-                    <td>{{ program.title }}</td>
-                    <td>{{ program.season }}</td>
-                    <td>{{ program.platform }}</td>
-                    <td>
-                        <button @click="setProgramSelected" v-bind:data-programid="program._id" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#modalView">
-                            <i class="bi bi-eye d-flex align-items-center"></i>
-                            <!-- Voir -->
-                        </button>
-                    </td>
-                    <td>
-                        <button @click="updateProg" v-bind:data-programid="program._id" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#modalUpdate">
-                            <i class="bi bi-pencil d-flex align-items-center"></i>
-                            <!-- Modifier -->
-                        </button>
-                    </td>
-                    <td>
-                        <button @click="deleteProg" v-bind:data-programid="program._id" type="button" class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash d-flex align-items-center"></i>
-                            <!-- Supprimer -->
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-            
-        </table>
+        <h2 class="text-center my-4">Liste des programmes</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-borderless align-middle fs-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Saison</th>
+                        <th scope="col">Plateforme</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(program) in programs" :key="program._id">
+                        <th scope="row">{{ formatTime(program.schedule) }}</th>
+                        <td>{{ program.title }}</td>
+                        <td>{{ program.season }}</td>
+                        <td>{{ program.platform }}</td>
+                        <td>
+                            <button @click="setProgramSelected" v-bind:data-programid="program._id" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#modalView">
+                                <i class="bi bi-eye d-flex align-items-center"></i>
+                                <!-- Voir -->
+                            </button>
+                        </td>
+                        <td>
+                            <button @click="updateProg" v-bind:data-programid="program._id" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#modalUpdate">
+                                <i class="bi bi-pencil d-flex align-items-center"></i>
+                                <!-- Modifier -->
+                            </button>
+                        </td>
+                        <td>
+                            <button @click="deleteProg" v-bind:data-programid="program._id" type="button" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash d-flex align-items-center"></i>
+                                <!-- Supprimer -->
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
 
         <!-- Modal View -->
         <div class="modal fade" id="modalView" tabindex="-1" aria-labelledby="modalViewLabel"
@@ -87,43 +89,45 @@
         <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="modalUpdateLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="modalUpdateLabel">Modification du programme</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form @submit.prevent="modifyProgram">
-                        <div class="mb-3">
-                            <label for="inputSchedule" class="form-label">Date</label>
-                            <input v-model="updateSchedule" type="datetime-local" class="form-control" id="inputSchedule">
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputTitle" class="form-label">Titre</label>
-                            <input v-model="updateTitle" type="text" class="form-control" id="inputTitle">
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputSeason" class="form-label">Saison</label>
-                            <input v-model="updateSeason" type="text" class="form-control" id="inputSeason">
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputPlatform" class="form-label">Plateforme</label>
-                            <input v-model="updatePlatform" type="text" class="form-control" id="inputPlatform">
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputCountries" class="form-label">Pays</label>
-                            <input v-model="updateCountries" type="text" class="form-control" id="inputCountries">
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputNote" class="form-label">Note</label>
-                            <textarea v-model="updateNote" type="text" class="form-control" id="inputNote"/>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary">Modifier</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="modalUpdateLabel">Modification du programme</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form @submit.prevent="modifyProgram">
+                            <div class="mb-3">
+                                <label for="inputSchedule" class="form-label">Date</label>
+                                <input v-model="updateSchedule" type="datetime-local" class="form-control" id="inputSchedule">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputTitle" class="form-label">Titre</label>
+                                <input v-model="updateTitle" type="text" class="form-control" id="inputTitle">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputSeason" class="form-label">Saison</label>
+                                <input v-model="updateSeason" type="text" class="form-control" id="inputSeason">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputPlatform" class="form-label">Plateforme</label>
+                                <input v-model="updatePlatform" type="text" class="form-control" id="inputPlatform">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputCountries" class="form-label">Pays</label>
+                                <input v-model="updateCountries" type="text" class="form-control" id="inputCountries">
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputNote" class="form-label">Note</label>
+                                <textarea v-model="updateNote" type="text" class="form-control" id="inputNote"/>
+                            </div>
+                            
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Modifier</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div class="modal-footer d-flex justify-content-start">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X</button>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -179,7 +183,7 @@
                 
             },
             async deleteProg(e) {
-                const progId = e.target.dataset.programid;
+                const progId = e.currentTarget.getAttribute('data-programid');
                 console.log(progId);
                 const token = this.$store.state.token;
 
@@ -276,7 +280,7 @@
                         console.log("récup program après appel API suite maj", response.data);
 
                         const updatedProgramFromDB = response.data;
-                        this.$store.dispatch('updatePrograms', updatedProgramFromDB);
+                        this.$store.dispatch('updateProgram', updatedProgramFromDB);
 
 
                     } catch (error) {
