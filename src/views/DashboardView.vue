@@ -94,6 +94,8 @@
 
                     this.programs = response.data;
 
+                    this.programs.sort( (a, b) => new Date(a.schedule) - new Date(b.schedule) );
+
                     this.$store.dispatch('setPrograms', response.data);
 
                 } catch (error) {
@@ -130,6 +132,8 @@
                         console.log("récup programs après ajout program", response.data);
 
                         this.programs = response.data;
+
+                        this.programs.sort( (a, b) => new Date(a.schedule) - new Date(b.schedule) );
 
                         this.$store.dispatch('setPrograms', response.data);
 

@@ -35,6 +35,7 @@ export default createStore({
     UPDATE_PROGRAM(state, program) {
       const index = state.programs.findIndex(prog => prog._id == program._id);
       state.programs[index] = program;
+      state.programs.sort( (a, b) => new Date(a.schedule) - new Date(b.schedule) );
     },
     // ADD_PROGRAM(state, program) {
     //   state.programs.push(program);
