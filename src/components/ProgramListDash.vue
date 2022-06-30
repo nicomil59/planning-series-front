@@ -267,8 +267,26 @@
 
                     // mise à jour de user dans le state
                     // this.$store.dispatch('updatePrograms');
-
+                    
                     alert('modification effectuée !');
+
+                    try {
+                        const response = await Api.get(`programs/${progId}`);
+
+                        console.log("récup program après appel API suite maj", response.data);
+
+                        const updatedProgramFromDB = response.data;
+                        this.$store.dispatch('updatePrograms', updatedProgramFromDB);
+
+
+                    } catch (error) {
+                        console.log(error.response.data);
+                    }
+
+
+                    // const payload = { ...updatedProgram, schedule: this.updateSchedule + ":00.000Z", _id: progId};
+                    // console.log("payload", payload);
+
 
                 } catch (error) {
                     console.log(error.response.data);

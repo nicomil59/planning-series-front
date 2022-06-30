@@ -31,6 +31,10 @@ export default createStore({
     DELETE_PROGRAM(state, progId) {
       const index = state.programs.findIndex(prog => prog._id == progId);
       state.programs.splice(index, 1);
+    },
+    UPDATE_PROGRAMS(state, program) {
+      const index = state.programs.findIndex(prog => prog._id == program._id);
+      state.programs[index] = program;
     }
   },
   actions: {
@@ -48,6 +52,9 @@ export default createStore({
     },
     deleteProgram({ commit }, progId) {
       commit('DELETE_PROGRAM', progId)
+    },
+    updatePrograms({ commit }, program) {
+      commit('UPDATE_PROGRAMS', program)
     },
     checkToken({ commit }) {
       if (localStorage.getItem("token")) {
