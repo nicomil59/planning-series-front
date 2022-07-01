@@ -56,4 +56,14 @@
         border-radius: 24px;
         border-width: 2px;
     }
+
+    @media screen and (max-width: 576px) {
+    .navbar-nav {
+        margin: 15px 0;
+        align-items: center;
+    }
+    /* .nav-link {
+      padding: 0.5rem;
+    } */
+  }
 </style>

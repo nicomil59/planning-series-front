@@ -22,23 +22,23 @@
                         <form @submit.prevent="createProgram">
                             <div class="mb-3">
                                 <label for="inputSchedule" class="form-label">Date</label>
-                                <input v-model="schedule" type="datetime-local" class="form-control" id="inputSchedule">
+                                <input v-model="schedule" type="datetime-local" class="form-control" id="inputSchedule" required>
                             </div>
                             <div class="mb-3">
                                 <label for="inputTitle" class="form-label">Titre</label>
-                                <input v-model="title" type="text" class="form-control" id="inputTitle">
+                                <input v-model="title" type="text" class="form-control" id="inputTitle" required>
                             </div>
                             <div class="mb-3">
                                 <label for="inputSeason" class="form-label">Saison</label>
-                                <input v-model="season" type="text" class="form-control" id="inputSeason">
+                                <input v-model="season" type="text" class="form-control" id="inputSeason" required>
                             </div>
                             <div class="mb-3">
                                 <label for="inputPlatform" class="form-label">Plateforme</label>
-                                <input v-model="platform" type="text" class="form-control" id="inputPlatform">
+                                <input v-model="platform" type="text" class="form-control" id="inputPlatform" required>
                             </div>
                             <div class="mb-3">
                                 <label for="inputCountries" class="form-label">Pays</label>
-                                <input v-model="countries" type="text" class="form-control" id="inputCountries">
+                                <input v-model="countries" type="text" class="form-control" id="inputCountries" required>
                             </div>
                             <div class="mb-3">
                                 <label for="inputNote" class="form-label">Note</label>
@@ -125,6 +125,13 @@
 
                     console.log(response.data);
                     alert('nouveau programme créé !');
+
+                    this.schedule = null;
+                    this.title = '';
+                    this.season = '';
+                    this.platform = '';
+                    this.countries = [];
+                    this.note = '';
 
                     try {
                         const response = await Api.get('programs');

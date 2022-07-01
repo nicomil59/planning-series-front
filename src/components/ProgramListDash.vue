@@ -6,6 +6,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Date</th>
+                        <th scope="col">Horaire</th>
                         <th scope="col">Titre</th>
                         <th scope="col">Saison</th>
                         <th scope="col">Plateforme</th>
@@ -16,7 +17,8 @@
                 </thead>
                 <tbody>
                     <tr v-for="(program) in programs" :key="program._id">
-                        <th scope="row">{{ formatTime(program.schedule) }}</th>
+                        <th scope="row">{{ formatDate(program.schedule) }}</th>
+                        <td scope="row">{{ formatHour(program.schedule) }}</td>
                         <td>{{ program.title }}</td>
                         <td>{{ program.season }}</td>
                         <td>{{ program.platform }}</td>
@@ -166,6 +168,12 @@
         methods: {
             formatTime(time) {
                 return moment(time).format('L')+ ' - ' + moment(time).format('LT')
+            },
+            formatDate(time) {
+                return moment(time).format('L')
+            },
+            formatHour(time) {
+                return moment(time).format('LT')
             },
             setProgramSelected(e) {
                 this.programList = this.$store.state.programs;
