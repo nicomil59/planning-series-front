@@ -4,8 +4,14 @@
         <h1 class="text-center">Dashboard</h1>
         <p v-if="loggedIn" class="text-success text-center">Connecté</p>
         <p v-else class="text-danger text-center">Pas connecté</p>
-        <ProgramListDash v-if="loggedIn" v-bind:programs="programs" />
+
+        <label for="search" class="visually-hidden">Search for icons</label>
+        <input v-if="loggedIn" v-on:input="filterList()" type="text" v-model="search" placeholder="Rechercher programme..." class="form-control mx-auto" id="search" />
+
+        <ProgramListDash v-if="loggedIn" v-bind:programs="filteredList" />
         <p v-else class="text-center">Il faut être connecté pour accéder à la liste des programmes ! 😉</p>
+        <p v-if="search && filteredList.length === 0" class="text-center text-danger fw-bold">Pas de résultat ! 😕</p>
+        
         <div v-if="loggedIn" class="container d-flex justify-content-end mt-4">
             <button type="button" class="btn btn-outline-success btn-addprogram" data-bs-toggle="modal" data-bs-target="#modalAdd">Ajouter programme</button>
         </div>
@@ -79,7 +85,9 @@
                 season: '',
                 platform: '',
                 countries: [],
-                note: ''
+                note: '',
+                search: '',
+                filteredList: []
             };
         },
         computed: {
@@ -95,6 +103,8 @@
                     this.programs = response.data;
 
                     this.programs.sort( (a, b) => new Date(a.schedule) - new Date(b.schedule) );
+
+                    this.filteredList = this.programs;
 
                     this.$store.dispatch('setPrograms', response.data);
 
@@ -152,6 +162,16 @@
                     console.log(error.response.data);
                 }
 
+            },
+            filterList() {
+                
+                console.log(this.search);
+                
+                const result = this.programs.filter(program => program.title.toLowerCase().includes(this.search.toLowerCase()));
+                
+                console.log(result);
+
+                this.filteredList = result;
             }
         },
         async beforeMount() {
@@ -164,5 +184,9 @@
     .btn-addprogram {
         border-radius: 24px;
         border-width: 2px;
+    }
+
+    #search {
+        max-width: 300px;
     }
 </style>
