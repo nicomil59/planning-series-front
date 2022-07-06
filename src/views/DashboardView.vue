@@ -8,8 +8,12 @@
         <label for="search" class="visually-hidden">Search for icons</label>
         <input v-if="loggedIn" v-on:input="filterList()" type="text" v-model="search" placeholder="Rechercher programme..." class="form-control mx-auto" id="search" />
 
-        <ProgramListDash v-if="loggedIn" v-bind:programs="filteredList" />
+        <div v-if="loggedIn">
+            <ProgramListDash v-if="search" v-bind:programs="filteredList" />
+            <ProgramListDash v-else v-bind:programs="programs" />
+        </div>
         <p v-else class="text-center">Il faut être connecté pour accéder à la liste des programmes ! 😉</p>
+        
         <p v-if="search && filteredList.length === 0" class="text-center text-danger fw-bold">Pas de résultat ! 😕</p>
         
         <div v-if="loggedIn" class="container d-flex justify-content-end mt-4">

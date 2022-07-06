@@ -37,5 +37,13 @@
 </script>
 
 <style scoped>
+
+.navbar {
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); */
+    background-color: #f9f9f9 !important;
+}
+.navbar:hover {
+    background-color: #fff !important;
+}
     
 </style>

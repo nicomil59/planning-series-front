@@ -1,14 +1,14 @@
 <template>
   <div>
     <NavBarApp />
-    <div class="container">
+    <div class="container-fluid pt-4">
       <div class="home mx-auto">
         <h1 class="text-center">HOME</h1>
-        <ProgramList v-bind:programs="programs" />
+        <ProgramList v-bind:programs="programs" class="pb-5" />
       </div>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -56,18 +56,25 @@
 </script>
 
 <style scoped>
-  
-  .container {
-    border: 1px solid red;
+  .container-fluid {
+    background-color: #F9F9F9;
   }
-  
+
   p {
     padding: 0 !important;
-  }  
+  }
 
   .home {
     max-width: 1440px;
-    width: 80%;
+    width: 95%;
     /* width: 750px; */
+    /* background-color: #F9F9F9; */
+
+  }
+
+  @media screen and (max-width: 768px) {
+    .home {
+      width: 100%;
+    }
   }
 </style>
