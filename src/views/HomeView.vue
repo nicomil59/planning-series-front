@@ -1,21 +1,73 @@
 <template>
-  <div class="home">
-    <!-- <h2 v-if="loggedIn" class="text-success">Connecté</h2>
-    <h2 v-else class="text-danger">Pas connecté</h2> -->
-    <h1>HOME</h1>
+  <div>
+    <NavBarApp />
+    <div class="container">
+      <div class="home mx-auto">
+        <h1 class="text-center">HOME</h1>
+        <ProgramList v-bind:programs="programs" />
+      </div>
+    </div>
   </div>
+  
 </template>
 
 <script>
-// @ is an alias to /src
-// import { mapGetters } from 'vuex';
+  // import { mapGetters } from 'vuex';
+  import Api from '../services/Api';
+  import NavBarApp from '@/components/NavBarApp.vue';
+  import ProgramList from '@/components/ProgramList.vue';
 
-export default {
-  name: 'HomeView',
-  components: {
-  },
-  // computed: {
-  //   ...mapGetters(['loggedIn'])
-  // },
-}
+  export default {
+    name: 'HomeView',
+    components: {
+      NavBarApp,
+      ProgramList,
+    },
+    // computed: {
+    //   ...mapGetters(['loggedIn'])
+    // },
+    data() {
+      return {
+        programs: []
+      };
+    },
+    methods: {
+      async getPrograms() {
+        try {
+          const response = await Api.get('programs');
+
+          console.log("Resultats appel getPrograms", response.data);
+
+          this.programs = response.data;
+
+          this.programs.sort((a, b) => new Date(a.schedule) - new Date(b.schedule));
+
+          this.$store.dispatch('setPrograms', response.data);
+
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    },
+    async beforeMount() {
+      this.getPrograms();
+    }
+  }
 </script>
+
+<style scoped>
+  
+  .container {
+    border: 1px solid red;
+  }
+  
+  p {
+    padding: 0 !important;
+  }  
+
+  .home {
+    max-width: 1440px;
+    width: 80%;
+    /* width: 750px; */
+  }
+</style>
