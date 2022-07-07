@@ -3,7 +3,7 @@
         <label for="search" class="visually-hidden">Search for programs</label>
         <i class="bi bi-search icon"></i>
         <input v-on:input="handleSearch" type="text" v-model="search" placeholder="Rechercher programme..." class="form-control form-control-lg" id="search" />
-        <button @click="reset" type="reset">&times;</button>
+        <button v-show="search" @click="reset" type="reset">&times;</button>
     </div>
 </template>
 
@@ -21,13 +21,7 @@
                 console.log("Terme recherche dans SearchBar", this.search);
 
                 this.$emit('search', this.search);
-
-                // const result = this.programs.filter(program => program.title.toLowerCase().includes(this.search
-                //     .toLowerCase()));
-
-                // console.log(result);
-
-                // this.filteredList = result;
+                
             },
             reset() {
                 this.search = '';
