@@ -6,7 +6,7 @@
         <p v-else class="text-danger text-center">Pas connecté</p>
 
         <label for="search" class="visually-hidden">Search for icons</label>
-        <input v-if="loggedIn" v-on:input="filterList()" type="text" v-model="search" placeholder="Rechercher programme..." class="form-control mx-auto" id="search" />
+        <input v-if="loggedIn" v-on:input="filterList" type="text" v-model="search" placeholder="Rechercher programme..." class="form-control mx-auto" id="search" />
 
         <div v-if="loggedIn">
             <ProgramListDash v-if="search" v-bind:programs="filteredList" />

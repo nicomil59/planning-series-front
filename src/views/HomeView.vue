@@ -4,7 +4,9 @@
     <div class="container-fluid pt-4">
       <div class="home mx-auto">
         <h1 class="text-center">HOME</h1>
-        <ProgramList v-bind:programs="programs" class="pb-5" />
+        <SearchBar @search="HandleFilter" class="mx-auto mt-4" />
+        <ProgramList v-if="search" :programs="filteredList" class="pb-5" />
+        <ProgramList v-else :programs="programs" class="pb-5" />
       </div>
     </div>
   </div>
@@ -16,19 +18,23 @@
   import Api from '../services/Api';
   import NavBarApp from '@/components/NavBarApp.vue';
   import ProgramList from '@/components/ProgramList.vue';
+  import SearchBar from '@/components/SearchBar.vue';
 
   export default {
     name: 'HomeView',
     components: {
       NavBarApp,
       ProgramList,
+      SearchBar
     },
     // computed: {
     //   ...mapGetters(['loggedIn'])
     // },
     data() {
       return {
-        programs: []
+        programs: [],
+        filteredList: [],
+        search: ''
       };
     },
     methods: {
@@ -48,6 +54,17 @@
           console.log(error);
         }
       },
+      HandleFilter(searchTerm) {
+        console.log('payload', searchTerm);
+
+        const result = this.programs.filter(program => program.title.toLowerCase().includes(searchTerm.toLowerCase()));
+
+        this.search = searchTerm;
+
+        console.log(result);
+
+        this.filteredList = result;
+      }
     },
     async beforeMount() {
       this.getPrograms();
@@ -56,10 +73,6 @@
 </script>
 
 <style scoped>
-  .container-fluid {
-    background-color: #F9F9F9;
-  }
-
   p {
     padding: 0 !important;
   }
