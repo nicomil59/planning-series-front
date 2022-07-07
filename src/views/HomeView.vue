@@ -4,7 +4,7 @@
     <div class="container-fluid pt-4">
       <div class="home mx-auto">
         <h1 class="text-center">HOME</h1>
-        <SearchBar @search="HandleFilter" class="mx-auto mt-4" />
+        <SearchBar @search="handleFilter" class="mx-auto mt-4" />
         <ProgramList v-if="search" :programs="filteredList" class="pb-5" />
         <ProgramList v-else :programs="programs" class="pb-5" />
       </div>
@@ -19,6 +19,8 @@
   import NavBarApp from '@/components/NavBarApp.vue';
   import ProgramList from '@/components/ProgramList.vue';
   import SearchBar from '@/components/SearchBar.vue';
+  import moment from 'moment';
+  moment.locale('fr');
 
   export default {
     name: 'HomeView',
@@ -44,9 +46,11 @@
 
           console.log("Resultats appel getPrograms", response.data);
 
-          this.programs = response.data;
+          this.programs = this.getProgramsFromToday(response.data);
 
           this.programs.sort((a, b) => new Date(a.schedule) - new Date(b.schedule));
+
+          console.log('Programmes à venir', this.programs);
 
           this.$store.dispatch('setPrograms', response.data);
 
@@ -54,7 +58,7 @@
           console.log(error);
         }
       },
-      HandleFilter(searchTerm) {
+      handleFilter(searchTerm) {
         console.log('payload', searchTerm);
 
         const result = this.programs.filter(program => program.title.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -64,6 +68,11 @@
         console.log(result);
 
         this.filteredList = result;
+      },
+      getProgramsFromToday(programs) {
+        const result = programs.filter(program => moment(program.schedule).isAfter(moment().subtract(1, 'days')));
+
+        return result;
       }
     },
     async beforeMount() {
