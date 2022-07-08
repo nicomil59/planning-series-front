@@ -1,6 +1,6 @@
 <template>
     <div class="container-list mt-3 mx-auto">
-        <h2 class="text-center my-4">ProgramList</h2>
+        <!-- <h2 class="text-center my-4">ProgramList</h2> -->
 
         <ul v-if="programs.length > 0" class="mx-auto">
             <li v-for="(program) in programs" :key="program._id" class="mb-3 mx-auto">
@@ -8,7 +8,7 @@
             </li>
         </ul>
 
-        <p v-else class="text-center">Aucun programme !</p>
+        <p v-else class="text-center text-danger fw-bold">Aucun programme ne correspond ! 😑</p>
 
     </div>
 </template>

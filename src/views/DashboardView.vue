@@ -1,12 +1,16 @@
 <template>
     <div>
         <NavBar />
-        <h1 class="text-center">Dashboard</h1>
+        <h1 class="text-center mt-4">Dashboard</h1>
         <p v-if="loggedIn" class="text-success text-center">Connecté</p>
         <p v-else class="text-danger text-center">Pas connecté</p>
 
         <label for="search" class="visually-hidden">Search for icons</label>
         <input v-if="loggedIn" v-on:input="filterList" type="text" v-model="search" placeholder="Rechercher programme..." class="form-control mx-auto" id="search" />
+
+        <div v-if="loggedIn" class="container d-flex justify-content-end my-4">
+            <button type="button" class="btn btn-outline-success btn-addprogram" data-bs-toggle="modal" data-bs-target="#modalAdd">Ajouter programme</button>
+        </div>
 
         <div v-if="loggedIn">
             <ProgramListDash v-if="search" v-bind:programs="filteredList" />
@@ -15,10 +19,6 @@
         <p v-else class="text-center">Il faut être connecté pour accéder à la liste des programmes ! 😉</p>
         
         <p v-if="search && filteredList.length === 0" class="text-center text-danger fw-bold">Pas de résultat ! 😕</p>
-        
-        <div v-if="loggedIn" class="container d-flex justify-content-end mt-4">
-            <button type="button" class="btn btn-outline-success btn-addprogram" data-bs-toggle="modal" data-bs-target="#modalAdd">Ajouter programme</button>
-        </div>
 
         <!-- Modal Add -->
         <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="modalAddLabel" aria-hidden="true">

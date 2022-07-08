@@ -39,13 +39,14 @@
 
     .search-bar input {
         padding-left: 35px;
+        border-radius: 24px;
     }
     
     .search-bar button {
         position: absolute;
         top: 0;
         bottom: 0;
-        right: 5px;
+        right: 8px;
         display: block;
         margin: auto;
         padding: 0;

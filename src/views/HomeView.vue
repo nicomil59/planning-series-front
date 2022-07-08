@@ -5,6 +5,41 @@
       <div class="home mx-auto">
         <h1 class="text-center">HOME</h1>
         <SearchBar @search="handleFilter" class="mx-auto mt-4" />
+
+        <!-- Boutons de filtre -->
+        <div class="btn-filters mt-4">
+          <div class="btn-group">
+            <button class="btn btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Filtrer par date
+            </button>
+            <ul class="dropdown-menu">
+              <li><a @click="filterPreviously" class="dropdown-item" href="#">Previously (J-30)</a></li>
+              <li><a @click="filterPlusSeven" class="dropdown-item" href="#">J+7</a></li>
+              <li><a @click="filterPlusMonth" class="dropdown-item" href="#">J+30</a></li>
+            </ul>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Filtrer par plateforme
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Netflix</a></li>
+              <li><a class="dropdown-item" href="#">Prime Video</a></li>
+              <li><a class="dropdown-item" href="#">Disney+</a></li>
+              <li><a class="dropdown-item" href="#">Apple TV+</a></li>
+              <li><a class="dropdown-item" href="#">Canal</a></li>
+              <li><a class="dropdown-item" href="#">OCS</a></li>
+              <li><a class="dropdown-item" href="#">Autres</a></li>
+            </ul>
+          </div>
+          <button @click="resetFilter" type="button" class="btn btn-lg btn-reset">Reset</button>
+        </div>
+
+        <p v-if="filterName" class="text-center filter-name mt-4">Programmes à {{ filterName }}</p>
+        <p v-else class="text-center filter-name mt-4">Tous les programmes</p>
+
         <ProgramList v-if="search" :programs="filteredList" class="pb-5" />
         <ProgramList v-else :programs="programs" class="pb-5" />
       </div>
@@ -34,9 +69,11 @@
     // },
     data() {
       return {
+        allPrograms: [],
         programs: [],
         filteredList: [],
-        search: ''
+        search: '',
+        filterName: ''
       };
     },
     methods: {
@@ -44,15 +81,25 @@
         try {
           const response = await Api.get('programs');
 
+          console.log('*********** APPEL API ***********');
+
           console.log("Resultats appel getPrograms", response.data);
 
-          this.programs = this.getProgramsFromToday(response.data);
+          // this.allPrograms = response.data.sort((a, b) => new Date(a.schedule) - new Date(b.schedule));
 
-          this.programs.sort((a, b) => new Date(a.schedule) - new Date(b.schedule));
+          const programsFromAPI = response.data;
+
+          programsFromAPI.sort((a, b) => new Date(a.schedule) - new Date(b.schedule));
+
+          this.allPrograms = programsFromAPI;
+
+          this.$store.dispatch('setPrograms', programsFromAPI);
+
+          this.programs = this.getProgramsFromToday(programsFromAPI);
+
+          // this.programs.sort((a, b) => new Date(a.schedule) - new Date(b.schedule));
 
           console.log('Programmes à venir', this.programs);
-
-          this.$store.dispatch('setPrograms', response.data);
 
         } catch (error) {
           console.log(error);
@@ -73,6 +120,49 @@
         const result = programs.filter(program => moment(program.schedule).isAfter(moment().subtract(1, 'days')));
 
         return result;
+      },
+      filterPreviously() {
+        console.log('Previously !!')
+
+        // réinitialise la liste des programmes
+        this.programs = this.getProgramsFromToday(this.allPrograms);
+
+        // filtre les programmes à J-30
+        const result = this.allPrograms.filter(program => moment(program.schedule).isAfter(moment().subtract(30, 'days')) && moment(program.schedule).isBefore(moment()));
+
+        this.filterName = 'J-30';
+
+        this.programs = result;
+      },
+      filterPlusSeven() {
+        console.log('Plus Seven !!')
+
+        // réinitialise la liste des programmes
+        this.programs = this.getProgramsFromToday(this.allPrograms);
+
+        // filtre les programmes à J+7
+        const result = this.programs.filter(program => moment(program.schedule).isBefore(moment().add(7, 'days')));
+
+        this.filterName = 'J+7';
+
+        this.programs = result;
+      },
+      filterPlusMonth() {
+        console.log('Plus Month !!')
+
+        // réinitialise la liste des programmes
+        this.programs = this.getProgramsFromToday(this.allPrograms);
+
+        // filtre les programmes à J+30
+        const result = this.programs.filter(program => moment(program.schedule).isBefore(moment().add(30, 'days')));
+
+        this.filterName = 'J+30';
+
+        this.programs = result;
+      },
+      resetFilter() {
+        this.filterName = '';
+        this.programs = this.getProgramsFromToday(this.allPrograms);
       }
     },
     async beforeMount() {
@@ -94,9 +184,51 @@
 
   }
 
+  .btn-filters {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .btn-filters .dropdown-toggle {
+    background-color: #4682B4;
+    color: #fff !important;
+    border-radius: 24px;
+    border: 0;
+  }
+
+  .btn-reset {
+    background-color: #476176;
+    color: #fff !important;
+    border-radius: 24px;
+    border: 0;
+  }
+
+  .dropdown-menu {
+    width: 100%;
+  }
+
+  .dropdown-item {
+    font-size: 20px;
+  }
+
+  .filter-name {
+    font-weight: 500;
+    font-size: 28px;
+    color: #4682B4;
+  }
+
   @media screen and (max-width: 768px) {
     .home {
       width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .btn-filters {
+      flex-direction: column;
+      max-width: 400px;
+      margin: 0 auto;
     }
   }
 </style>

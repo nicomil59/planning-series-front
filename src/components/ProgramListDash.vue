@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-3">
-        <h2 class="text-center my-4">Liste des programmes</h2>
+        <!-- <h2 class="text-center my-4">Liste des programmes</h2> -->
         <div class="table-responsive">
             <table class="table table-striped table-hover table-borderless align-middle fs-5">
                 <thead>
