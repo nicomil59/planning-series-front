@@ -8,7 +8,7 @@
             </li>
         </ul>
 
-        <p v-else class="text-center text-danger fw-bold">Aucun programme ne correspond ! 😑</p>
+        <p v-else class="text-center text-danger fw-bold">Pas trouvé ! 😑</p>
 
     </div>
 </template>

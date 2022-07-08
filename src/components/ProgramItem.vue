@@ -46,7 +46,7 @@
                 return moment(time).format('DD') + '/' + moment(time).format('MM')
             },
             formatHour(time) {
-                console.log(moment(time).fromNow());
+                // console.log(moment(time).fromNow());
                 
                 return moment(time).format('LT')
             },

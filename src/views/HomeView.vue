@@ -9,8 +9,7 @@
         <!-- Boutons de filtre -->
         <div class="btn-filters mt-4">
           <div class="btn-group">
-            <button class="btn btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
+            <button class="btn btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Filtrer par date
             </button>
             <ul class="dropdown-menu">
@@ -25,19 +24,19 @@
               Filtrer par plateforme
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Netflix</a></li>
-              <li><a class="dropdown-item" href="#">Prime Video</a></li>
-              <li><a class="dropdown-item" href="#">Disney+</a></li>
-              <li><a class="dropdown-item" href="#">Apple TV+</a></li>
-              <li><a class="dropdown-item" href="#">Canal</a></li>
-              <li><a class="dropdown-item" href="#">OCS</a></li>
-              <li><a class="dropdown-item" href="#">Autres</a></li>
+              <li><a @click="filterByPlatform" class="dropdown-item" href="#">Netflix</a></li>
+              <li><a @click="filterByPlatform" class="dropdown-item" href="#">Prime Video</a></li>
+              <li><a @click="filterByPlatform" class="dropdown-item" href="#">Disney+</a></li>
+              <li><a @click="filterByPlatform" class="dropdown-item" href="#">Apple TV+</a></li>
+              <li><a @click="filterByPlatform" class="dropdown-item" href="#">Canal</a></li>
+              <li><a @click="filterByPlatform" class="dropdown-item" href="#">OCS</a></li>
+              <li><a @click="filterByPlatform" class="dropdown-item" href="#">Autres</a></li>
             </ul>
           </div>
           <button @click="resetFilter" type="button" class="btn btn-lg btn-reset">Reset</button>
         </div>
 
-        <p v-if="filterName" class="text-center filter-name mt-4">Programmes à {{ filterName }}</p>
+        <p v-if="filterName" class="text-center filter-name mt-4">Programmes {{ filterName }}</p>
         <p v-else class="text-center filter-name mt-4">Tous les programmes</p>
 
         <ProgramList v-if="search" :programs="filteredList" class="pb-5" />
@@ -128,9 +127,10 @@
         this.programs = this.getProgramsFromToday(this.allPrograms);
 
         // filtre les programmes à J-30
-        const result = this.allPrograms.filter(program => moment(program.schedule).isAfter(moment().subtract(30, 'days')) && moment(program.schedule).isBefore(moment()));
+        const result = this.allPrograms.filter(program => moment(program.schedule).isAfter(moment().subtract(30,
+          'days')) && moment(program.schedule).isBefore(moment()));
 
-        this.filterName = 'J-30';
+        this.filterName = 'à J-30';
 
         this.programs = result;
       },
@@ -143,7 +143,7 @@
         // filtre les programmes à J+7
         const result = this.programs.filter(program => moment(program.schedule).isBefore(moment().add(7, 'days')));
 
-        this.filterName = 'J+7';
+        this.filterName = 'à J+7';
 
         this.programs = result;
       },
@@ -156,7 +156,38 @@
         // filtre les programmes à J+30
         const result = this.programs.filter(program => moment(program.schedule).isBefore(moment().add(30, 'days')));
 
-        this.filterName = 'J+30';
+        this.filterName = 'à J+30';
+
+        this.programs = result;
+      },
+      filterByPlatform(e) {
+        console.log('Filter by Platform !!')
+
+        let result = "";
+
+        console.log(e.target.innerText)
+        const platform = e.target.innerText.toLowerCase();
+
+        // réinitialise la liste des programmes
+        this.programs = this.getProgramsFromToday(this.allPrograms);
+
+        // filtre les programmes selon la plateforme sélectionnée
+        console.log('Plateforme: ', platform);
+
+        this.filterName = 'de ' + e.target.innerText;
+
+        if (platform === 'canal') {
+          result = this.programs.filter(program => program.platform.toLowerCase().includes('canal'));
+        } else if (platform === 'ocs') {
+          result = this.programs.filter(program => program.platform.toLowerCase().includes('ocs '));
+        } else if (platform === 'autres') {
+          result = this.programs.filter(program => !['netflix', 'prime video', 'disney+', 'apple tv+'].includes(program
+              .platform.toLowerCase()) && !program.platform.toLowerCase().includes('ocs ') && !program.platform
+            .toLowerCase().includes('canal'));
+          this.filterName = 'des autres plateformes';
+        } else {
+          result = this.programs.filter(program => program.platform.toLowerCase() === platform);
+        }
 
         this.programs = result;
       },
@@ -229,6 +260,10 @@
       flex-direction: column;
       max-width: 400px;
       margin: 0 auto;
+    }
+
+    .filter-name {
+      font-size: 22px;
     }
   }
 </style>
