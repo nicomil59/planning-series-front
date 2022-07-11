@@ -83,7 +83,7 @@
     }
 
     .card-left {
-        background: #F0F8FF;
+        background: #CAF0F8;
         border-radius: 10px;
         /* min-width: 152px; */
         /* width: 20%; */
@@ -142,7 +142,7 @@
         font-size: 21px;
         font-weight: 500;
         text-transform: uppercase;
-        color: #4682B4;
+        color: #0077B6;
         /* display: flex; */
         /* justify-content: end; */
         text-align: end;

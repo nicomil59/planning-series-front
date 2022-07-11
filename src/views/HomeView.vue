@@ -9,7 +9,7 @@
         <!-- Boutons de filtre -->
         <div class="btn-filters mt-4">
           <div class="btn-group">
-            <button class="btn btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-lg dropdown-toggle btn-filter-date" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Filtrer par date
             </button>
             <ul class="dropdown-menu">
@@ -19,7 +19,7 @@
             </ul>
           </div>
           <div class="btn-group">
-            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            <button class="btn btn-secondary btn-lg dropdown-toggle btn-filter-platform" type="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               Filtrer par plateforme
             </button>
@@ -30,6 +30,7 @@
               <li><a @click="filterByPlatform" class="dropdown-item" href="#">Apple TV+</a></li>
               <li><a @click="filterByPlatform" class="dropdown-item" href="#">Canal</a></li>
               <li><a @click="filterByPlatform" class="dropdown-item" href="#">OCS</a></li>
+              <li><a @click="filterByPlatform" class="dropdown-item" href="#">Salto</a></li>
               <li><a @click="filterByPlatform" class="dropdown-item" href="#">Autres</a></li>
             </ul>
           </div>
@@ -181,7 +182,7 @@
         } else if (platform === 'ocs') {
           result = this.programs.filter(program => program.platform.toLowerCase().includes('ocs '));
         } else if (platform === 'autres') {
-          result = this.programs.filter(program => !['netflix', 'prime video', 'disney+', 'apple tv+'].includes(program
+          result = this.programs.filter(program => !['netflix', 'prime video', 'disney+', 'apple tv+', 'salto'].includes(program
               .platform.toLowerCase()) && !program.platform.toLowerCase().includes('ocs ') && !program.platform
             .toLowerCase().includes('canal'));
           this.filterName = 'des autres plateformes';
@@ -222,14 +223,21 @@
   }
 
   .btn-filters .dropdown-toggle {
-    background-color: #4682B4;
     color: #fff !important;
     border-radius: 24px;
     border: 0;
   }
 
+  .btn-filter-date {
+    background-color: #00B4D8;
+  }
+
+  .btn-filter-platform {
+    background-color: #0096C7;
+  }
+
   .btn-reset {
-    background-color: #476176;
+    background-color: #023E8A;
     color: #fff !important;
     border-radius: 24px;
     border: 0;
@@ -246,7 +254,7 @@
   .filter-name {
     font-weight: 500;
     font-size: 28px;
-    color: #4682B4;
+    color: #0077B6;
   }
 
   @media screen and (max-width: 768px) {
