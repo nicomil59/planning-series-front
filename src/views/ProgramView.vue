@@ -1,34 +1,31 @@
 <template>
     <div>
         <NavBarApp />
-        <div class="card card-program">
-            <div>{{ title }}</div>
-            <div>{{ season }}</div>
-            <div>{{ platform }}</div>
-            <div>{{ formatTime(schedule) }}</div>
-            <div class="card-countries"><span v-for="(country) in countries" :key="country"
-                    class="card-text">{{ country }}</span></div>
-            <div>{{ note }}</div>
-            <!-- <div class="row g-0 card-wrapper">
-                <div class="col-md-4 d-flex card-left">
-                    <span class="card-day">{{ formatDay(program.schedule)}}</span>
-                    <span class="card-date">{{ formatDate(program.schedule)}}</span>
-                    <span class="card-hour">{{ formatHour(program.schedule)}}</span>
-                </div>
-                <div class="col-md-8 card-right">
-                    <div class="card-body card-content">
-                        <div class="card-content-main">
-                            <h4 class="card-title card-program-title">{{ program.title }}</h4>
-                            <h5 class="card-title card-program-season">{{ program.season }}</h5>
+        <div class="container-fluid pt-4">
+            <main class="mx-auto">
+                <div class="card card-program text-center">
+                    <div class="card-wrapper">
+                        <div class="card-header">
+                            <span class="card-schedule"><span class="card-date">{{ formatDate(schedule) }}</span> à
+                                <span class="card-hour">{{ formatHour(schedule) }}</span></span>
                         </div>
-                        <div class="card-text card-platform"><span>{{ program.platform }}</span></div>
-                        <div class="card-countries">
-                            <span v-for="(country) in program.countries" :key="country"
-                                class="card-text">{{ country }}</span>
+                        <div class="card-body">
+                            <h1 class="card-title card-program-title">{{ title }}</h1>
+                            <p class="card-title card-program-season">{{ season }}</p>
+                            <p class="card-text card-platform">{{ platform }}</p>
+                            <div class="card-countries">
+                                <span v-for="(country) in countries" :key="country"
+                                    class="card-text card-country">{{ country }}</span>
+                            </div>
+                        </div>
+                        <div v-if="note" class="card-footer">
+                            <p class="card-text card-note">{{ note }}</p>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </main>
+
+
         </div>
     </div>
 </template>
@@ -89,14 +86,14 @@
                 return moment(time).format('ddd').slice(0, 3)
             },
             formatDate(time) {
-                return moment(time).format('DD') + '/' + moment(time).format('MM')
+                return moment(time).format('dddd') + ' ' + moment(time).format('LL')
             },
             formatHour(time) {
                 return moment(time).format('LT')
             },
         },
         beforeMount() {
-            
+
 
             console.log(localStorage.getItem('program'))
 
@@ -119,7 +116,102 @@
 </script>
 
 <style scoped>
+    p {
+        padding: 0 !important;
+    }
+
+    main {
+        max-width: 1440px;
+        width: 95%;
+    }
+
+    .card-program {
+        border-radius: 20px;
+        /* max-width: 900px; */
+        border: 0;
+    }
+
+    .card-header {
+        border: 0;
+        background: #CAF0F8;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        font-size: 2rem;
+    }
+
+    .card-date,
+    .card-hour {
+        font-weight: 600;
+        color: #03045E;
+    }
+
+    .card-program-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #03045E;
+    }
+
+    .card-program-season {
+        font-size: 2rem;
+        font-weight: 500;
+        color: #696969;
+    }
+
+    .card-platform {
+        font-size: 2.5rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.2rem;
+        color: #0077B6;
+    }
+
+    .card-country {
+        font-size: 1.75rem;
+        color: #03045E;
+    }
+
+    .card-footer {
+        border: 0;
+        background: #e5f3f6;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    .card-note {
+        font-size: 1.5rem;
+        color: #03045E;
+        white-space: pre-wrap;
+    }
+
     .card-countries span:not(:first-child)::before {
         content: ' | ';
+    }
+
+    @media screen and (max-width: 576px) {
+
+        .card-header {
+            font-size: 1.5rem;
+        }
+
+        .card-program-title {
+            font-size: 2.5rem;
+        }
+
+        .card-program-season {
+            font-size: 1.5rem;
+        }
+
+        .card-platform {
+            font-size: 2rem;
+        }
+
+        .card-country {
+            font-size: 1.5rem;
+        }
+
+        .card-note {
+            font-size: 1rem;
+        }
+
     }
 </style>
