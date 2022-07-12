@@ -95,6 +95,7 @@
         flex-direction: column;
         /* border: 1px solid red; */
         align-self: center;
+        color: #03045E;
     }
 
     .card-right {
@@ -130,6 +131,7 @@
     .card-program-title {
         font-size: 30px;
         font-weight: 700;
+        color: #03045E;
     }
 
     .card-program-season {
@@ -152,6 +154,10 @@
         position: absolute;
         right: 15px;
         bottom: 10px;
+    }
+
+    .card-countries span {
+        color: #03045E;
     }
 
     .card-countries span:not(:first-child)::before {

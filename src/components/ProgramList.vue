@@ -4,7 +4,8 @@
 
         <ul v-if="programs.length > 0" class="mx-auto">
             <li v-for="(program) in programs" :key="program._id" class="mb-3 mx-auto">
-                <ProgramItem v-bind:program="program" />
+                <router-link :to="{name: 'program', params: { id: program._id }}"><ProgramItem v-bind:program="program" class="program-item" /></router-link>
+                <!-- <ProgramItem v-bind:program="program" /> -->
             </li>
         </ul>
 
@@ -31,6 +32,11 @@
         },
         methods: {
 
+        },
+        beforeMount() {
+            if (localStorage.getItem('program')) {
+                localStorage.removeItem('program');
+            }
         }
     }
 </script>
