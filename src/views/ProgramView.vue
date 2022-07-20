@@ -192,14 +192,14 @@
 
     .btn-goback {
         border-radius: 15px;
-        border: 1px solid #0096C7;
-        color: #0096C7;
+        border: 1px solid #0077b6;
+        color: #0077b6;
         font-weight: 500;
     }
 
     .btn-goback:hover {
         border-radius: 15px;
-        background-color: #0096C7;
+        background-color: #0077b6;
         color: #fff;
     }
 
