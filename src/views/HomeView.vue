@@ -228,6 +228,10 @@
     border: 0;
   }
 
+  .btn-filters .dropdown-toggle:hover {
+    background-color: #03045E;
+  }
+
   .btn-filter-date {
     background-color: #00B4D8;
   }
@@ -241,6 +245,10 @@
     color: #fff !important;
     border-radius: 24px;
     border: 0;
+  }
+
+  .btn-reset:hover {
+    background-color: #03045E;
   }
 
   .dropdown-menu {

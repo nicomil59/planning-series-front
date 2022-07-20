@@ -23,9 +23,8 @@
                         </div>
                     </div>
                 </div>
+                <button @click="goBack" type="button" class="btn btn-outline-secondary btn-goback my-3"><i class="bi bi-arrow-left"></i></button>
             </main>
-
-
         </div>
     </div>
 </template>
@@ -91,6 +90,10 @@
             formatHour(time) {
                 return moment(time).format('LT')
             },
+            goBack() {
+                localStorage.removeItem('program');
+                this.$router.go(-1);
+            }
         },
         beforeMount() {
 
@@ -185,6 +188,25 @@
 
     .card-countries span:not(:first-child)::before {
         content: ' | ';
+    }
+
+    .btn-goback {
+        border-radius: 15px;
+        border: 1px solid #0096C7;
+        color: #0096C7;
+        font-weight: 500;
+    }
+
+    .btn-goback:hover {
+        border-radius: 15px;
+        background-color: #0096C7;
+        color: #fff;
+    }
+
+    .btn-goback i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     @media screen and (max-width: 576px) {
