@@ -1,17 +1,17 @@
 <template>
     <nav class="navbar navbar-expand-sm navbar-light bg-white">
         <div class="container">
-            <router-link to="/" @click="goBack" class="navbar-brand navbar-logo">Planning Séries</router-link>
+            <router-link to="/" class="navbar-brand navbar-logo">Planning Séries</router-link>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li v-if="isProgram" class="nav-item">
+                    <!-- <li v-if="isProgram" class="nav-item">
                         <button @click="goBack" class="btn btn-outline-secondary btn-goback">Retour</button>
-                    </li>
-                    <li v-else class="nav-item">
+                    </li> -->
+                    <li class="nav-item">
                         <router-link to="/about" class="btn btn-outline-secondary btn-about">À Propos</router-link>
                     </li>
                 </ul>
@@ -29,18 +29,18 @@
             };
         },
         methods: {
-            goBack() {
-                localStorage.removeItem('program');
-                this.$router.go(-1);
-            }
+            // goBack() {
+            //     localStorage.removeItem('program');
+            //     this.$router.go(-1);
+            // }
         },
         beforeMount() {
-            if (localStorage.getItem('program')) {
-                this.isProgram = true;
-                console.log("y a un prog")
-            } else {
-                console.log("y a pas de prog")
-            }
+            // if (localStorage.getItem('program')) {
+            //     this.isProgram = true;
+            //     console.log("y a un prog")
+            // } else {
+            //     console.log("y a pas de prog")
+            // }
         }
     }
 </script>

@@ -3,8 +3,8 @@
     <NavBarApp />
     <div class="container-fluid pt-4">
       <div class="home mx-auto">
-        <h1 class="text-center">HOME</h1>
-        <SearchBar @search="handleFilter" class="mx-auto mt-4" />
+        <!-- <h1 class="text-center">HOME</h1> -->
+        <SearchBar @search="handleFilter" class="mx-auto mt-3" />
 
         <!-- Boutons de filtre -->
         <div class="btn-filters mt-4">
