@@ -23,7 +23,8 @@
                         </div>
                     </div>
                 </div>
-                <button @click="goBack" type="button" class="btn btn-outline-secondary btn-goback my-3"><i class="bi bi-arrow-left"></i></button>
+                <button @click="goBack" type="button" class="btn btn-outline-secondary btn-goback my-3"><i
+                        class="bi bi-arrow-left"></i></button>
             </main>
         </div>
     </div>
@@ -36,6 +37,7 @@
     } from 'vuex';
     import moment from 'moment';
     moment.locale('fr');
+    import Api from '../services/Api';
 
     export default {
         name: "ProgramView",
@@ -69,7 +71,7 @@
                 const programs = this.$store.state.programs;
                 const program = programs.filter(program => program._id === this.id)[0];
 
-                localStorage.setItem("program", JSON.stringify(program));
+                // localStorage.setItem("program", JSON.stringify(program));
 
                 this.title = program.title;
                 this.season = program.season;
@@ -77,6 +79,31 @@
                 this.schedule = program.schedule;
                 this.countries = program.countries;
                 this.note = program.note;
+            },
+            async getProgramFromAPI() {
+                this.id = this.$route.params.id;
+                
+                try {
+                    const response = await Api.get(`programs/${this.id}`);
+
+                    console.log('*********** APPEL API ***********');
+
+                    console.log("Resultat appel getProgram", response.data);
+
+                    const programFromAPI = response.data;
+
+                    this.title = programFromAPI.title;
+                    this.season = programFromAPI.season;
+                    this.platform = programFromAPI.platform;
+                    this.schedule = programFromAPI.schedule;
+                    this.countries = programFromAPI.countries;
+                    this.note = programFromAPI.note;
+
+                } catch (error) {
+                    console.log(error);
+                }
+
+                
             },
             formatTime(time) {
                 return moment(time).format('dddd') + ' ' + moment(time).format('LL') + ' à ' + moment(time).format('LT')
@@ -91,27 +118,42 @@
                 return moment(time).format('LT')
             },
             goBack() {
-                localStorage.removeItem('program');
+                // localStorage.removeItem('program');
                 this.$router.go(-1);
             }
         },
         beforeMount() {
 
 
-            console.log(localStorage.getItem('program'))
+            // console.log(localStorage.getItem('program'))
 
-            if (!localStorage.getItem('program')) {
-                console.log('Pas de programme dans le Storage')
-                this.getProgram();
+            // if (!localStorage.getItem('program')) {
+            //     console.log('Pas de programme dans le Storage')
+            //     this.getProgram();
+            // } else {
+            //     console.log('program from Storage', JSON.parse(localStorage.getItem('program')));
+            //     const program = JSON.parse(localStorage.getItem('program'));
+            //     this.title = program.title;
+            //     this.season = program.season;
+            //     this.platform = program.platform;
+            //     this.schedule = program.schedule;
+            //     this.countries = program.countries;
+            //     this.note = program.note;
+            // }
+
+            console.log(this.$store.state.programs)
+
+            if (!this.$store.state.programs) {
+
+                console.log('Appel API pour récupérer les infos sur le programme')
+
+                this.getProgramFromAPI();
+
             } else {
-                console.log('program from Storage', JSON.parse(localStorage.getItem('program')));
-                const program = JSON.parse(localStorage.getItem('program'));
-                this.title = program.title;
-                this.season = program.season;
-                this.platform = program.platform;
-                this.schedule = program.schedule;
-                this.countries = program.countries;
-                this.note = program.note;
+
+                console.log('Utilisation STATE pour récupérer les infos sur le programme')
+
+                this.getProgram();
             }
 
         }

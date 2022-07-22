@@ -34,9 +34,9 @@
 
         },
         beforeMount() {
-            if (localStorage.getItem('program')) {
-                localStorage.removeItem('program');
-            }
+            // if (localStorage.getItem('program')) {
+            //     localStorage.removeItem('program');
+            // }
         }
     }
 </script>

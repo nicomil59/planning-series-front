@@ -9,7 +9,8 @@
         <!-- Boutons de filtre -->
         <div class="btn-filters mt-4">
           <div class="btn-group">
-            <button class="btn btn-lg dropdown-toggle btn-filter-date" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-lg dropdown-toggle btn-filter-date" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               Filtrer par date
             </button>
             <ul class="dropdown-menu">
@@ -19,8 +20,8 @@
             </ul>
           </div>
           <div class="btn-group">
-            <button class="btn btn-secondary btn-lg dropdown-toggle btn-filter-platform" type="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
+            <button class="btn btn-secondary btn-lg dropdown-toggle btn-filter-platform" type="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
               Filtrer par plateforme
             </button>
             <ul class="dropdown-menu">
@@ -105,6 +106,13 @@
           console.log(error);
         }
       },
+      getProgramsFromState() {
+
+        this.allPrograms = this.$store.state.programs;
+        
+        this.programs = this.getProgramsFromToday(this.allPrograms);
+
+      },
       handleFilter(searchTerm) {
         console.log('payload', searchTerm);
 
@@ -182,7 +190,8 @@
         } else if (platform === 'ocs') {
           result = this.programs.filter(program => program.platform.toLowerCase().includes('ocs '));
         } else if (platform === 'autres') {
-          result = this.programs.filter(program => !['netflix', 'prime video', 'disney+', 'apple tv+', 'salto'].includes(program
+          result = this.programs.filter(program => !['netflix', 'prime video', 'disney+', 'apple tv+', 'salto']
+            .includes(program
               .platform.toLowerCase()) && !program.platform.toLowerCase().includes('ocs ') && !program.platform
             .toLowerCase().includes('canal'));
           this.filterName = 'des autres plateformes';
@@ -198,7 +207,22 @@
       }
     },
     async beforeMount() {
-      this.getPrograms();
+
+      console.log(this.$store.state.programs)
+
+      if (!this.$store.state.programs) {
+
+        console.log('Appel API pour récupérer tous les programmes')
+
+        this.getPrograms();
+
+      } else {
+
+        console.log('Utilisation STATE pour récupérer tous les programmes')
+
+        this.getProgramsFromState();
+      }
+      
     }
   }
 </script>
