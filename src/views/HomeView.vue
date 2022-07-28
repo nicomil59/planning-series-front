@@ -44,6 +44,7 @@
         <ProgramList v-else :programs="programs" class="pb-5" />
       </div>
     </div>
+    <FooterCompo class="mx-auto"/>
   </div>
 
 </template>
@@ -53,6 +54,7 @@
   import NavBarApp from '@/components/NavBarApp.vue';
   import ProgramList from '@/components/ProgramList.vue';
   import SearchBar from '@/components/SearchBar.vue';
+  import FooterCompo from '@/components/FooterCompo.vue';
   import moment from 'moment';
   moment.locale('fr');
 
@@ -61,7 +63,8 @@
     components: {
       NavBarApp,
       ProgramList,
-      SearchBar
+      SearchBar,
+      FooterCompo
     },
     data() {
       return {

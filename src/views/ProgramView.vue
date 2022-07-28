@@ -27,11 +27,13 @@
                         class="bi bi-arrow-left"></i></button>
             </main>
         </div>
+        <FooterCompo class="mx-auto mt-3"/>
     </div>
 </template>
 
 <script>
     import NavBarApp from "@/components/NavBarApp.vue";
+    import FooterCompo from '@/components/FooterCompo.vue';
     import {
         mapGetters
     } from 'vuex';
@@ -46,6 +48,7 @@
         },
         components: {
             NavBarApp,
+            FooterCompo
         },
         data() {
             return {
