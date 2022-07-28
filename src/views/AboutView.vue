@@ -10,7 +10,6 @@
         <figure class="figure">
           <img src="../assets/oscar-nord-Sd87V72cJEU-unsplash.jpg" class="figure-img img-fluid about-img"
             alt="écran de télé avec des applications de streaming">
-          <!-- <figcaption class="figure-caption">A caption for the above image.</figcaption> -->
         </figure>
         <div class="about-features">
           <h2 class="about-features-title mt-3">Fonctionnalités</h2>
@@ -119,9 +118,4 @@
     justify-content: center;
     align-items: center;
   }
-
-  /* .about-features-content {
-    display: flex;
-    justify-content: space-between;
-  } */
 </style>

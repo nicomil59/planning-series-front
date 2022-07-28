@@ -13,7 +13,6 @@
                         <h5 class="card-title card-program-season">{{ program.season }}</h5>
                     </div>
                     <div class="card-text card-platform"><span>{{ program.platform }}</span></div>
-                    <!-- <p class="card-text card-note">{{ program.note }}</p> -->
                     <div class="card-countries">
                         <span v-for="(country) in program.countries" :key="country"
                             class="card-text">{{ country }}</span>
@@ -46,8 +45,6 @@
                 return moment(time).format('DD') + '/' + moment(time).format('MM')
             },
             formatHour(time) {
-                // console.log(moment(time).fromNow());
-                
                 return moment(time).format('LT')
             },
         }
@@ -57,10 +54,8 @@
 <style scoped>
     .card-program {
         border-radius: 20px;
-        /* box-shadow: 0 2px 8px rgb(0 0 0 / 15%); */
         max-width: 900px;
         border: 0;
-        /* height: 173px; */
         position: relative;
     }
 
@@ -70,7 +65,6 @@
 
     p {
         padding: 0 !important;
-        /* margin: 0 !important; */
     }
 
     .card-wrapper {
@@ -78,32 +72,22 @@
         height: 156px;
         display: flex;
         align-content: center;
-        /* align-items: center; */
-        /* border: 1px solid red; */
     }
 
     .card-left {
         background: #CAF0F8;
         border-radius: 10px;
-        /* min-width: 152px; */
-        /* width: 20%; */
-        /* height: 80%; */
         height: 132px;
         width: 152px;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        /* border: 1px solid red; */
         align-self: center;
         color: #03045E;
     }
 
     .card-right {
-        /* max-width: 80%; */
-        /* max-height: 133px; */
-        /* border: 1px solid red; */
         width: calc(100% - 152px);
-        /* border: 1px solid burlywood; */
     }
 
     .card-content {
@@ -145,8 +129,6 @@
         font-weight: 500;
         text-transform: uppercase;
         color: #0077B6;
-        /* display: flex; */
-        /* justify-content: end; */
         text-align: end;
     }
 
@@ -185,28 +167,17 @@
             font-size: 26px;
         }
 
-        /* .card-content {
-            flex-direction: row;
-        } */
-
         .card-content-main {
             width: 100%;
-            /* flex-direction: row;
-            justify-content: space-between; */
         }
 
         .card-program-title {
             font-size: 28px;
         }
 
-        /* .card-program-season {
-            font-size: 20px;
-        } */
-
         .card-countries {
             display: none;
         }
-
 
     }
 
@@ -247,7 +218,6 @@
         .card-platform {
             font-size: 18px;
         }
-
 
     }
 </style>

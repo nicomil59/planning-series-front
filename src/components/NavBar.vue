@@ -49,10 +49,6 @@
 <style scoped>
     .btn-logout,
     .btn-login {
-        /* background-color: #FD5835;
-        border-color: #FD5835; */
-        /* color: #fff !important; */
-        /* padding: 8px 12px !important; */
         border-radius: 24px;
         border-width: 2px;
     }
@@ -62,8 +58,6 @@
         margin: 15px 0;
         align-items: center;
     }
-    /* .nav-link {
-      padding: 0.5rem;
-    } */
+    
   }
 </style>

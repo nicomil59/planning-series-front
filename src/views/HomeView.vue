@@ -3,7 +3,6 @@
     <NavBarApp />
     <div class="container-fluid pt-4">
       <div class="home mx-auto">
-        <!-- <h1 class="text-center">HOME</h1> -->
         <SearchBar @search="handleFilter" class="mx-auto mt-3" />
 
         <!-- Boutons de filtre -->
@@ -50,7 +49,6 @@
 </template>
 
 <script>
-  // import { mapGetters } from 'vuex';
   import Api from '../services/Api';
   import NavBarApp from '@/components/NavBarApp.vue';
   import ProgramList from '@/components/ProgramList.vue';
@@ -65,9 +63,6 @@
       ProgramList,
       SearchBar
     },
-    // computed: {
-    //   ...mapGetters(['loggedIn'])
-    // },
     data() {
       return {
         allPrograms: [],
@@ -86,8 +81,6 @@
 
           console.log("Resultats appel getPrograms", response.data);
 
-          // this.allPrograms = response.data.sort((a, b) => new Date(a.schedule) - new Date(b.schedule));
-
           const programsFromAPI = response.data;
 
           programsFromAPI.sort((a, b) => new Date(a.schedule) - new Date(b.schedule));
@@ -97,8 +90,6 @@
           this.$store.dispatch('setPrograms', programsFromAPI);
 
           this.programs = this.getProgramsFromToday(programsFromAPI);
-
-          // this.programs.sort((a, b) => new Date(a.schedule) - new Date(b.schedule));
 
           console.log('Programmes à venir', this.programs);
 
@@ -235,9 +226,6 @@
   .home {
     max-width: 1440px;
     width: 95%;
-    /* width: 750px; */
-    /* background-color: #F9F9F9; */
-
   }
 
   .btn-filters {

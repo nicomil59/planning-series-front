@@ -1,6 +1,5 @@
 <template>
     <div class="container mt-3">
-        <!-- <h2 class="text-center my-4">Liste des programmes</h2> -->
         <div class="table-responsive">
             <table class="table table-striped table-hover table-borderless align-middle fs-5">
                 <thead>
@@ -26,20 +25,17 @@
                             <button @click="setProgramSelected" v-bind:data-programid="program._id" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#modalView">
                                 <i class="bi bi-eye d-flex align-items-center"></i>
-                                <!-- Voir -->
                             </button>
                         </td>
                         <td>
                             <button @click="updateProg" v-bind:data-programid="program._id" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#modalUpdate">
                                 <i class="bi bi-pencil d-flex align-items-center"></i>
-                                <!-- Modifier -->
                             </button>
                         </td>
                         <td>
                             <button @click="deleteProg" v-bind:data-programid="program._id" type="button" class="btn btn-danger btn-sm">
                                 <i class="bi bi-trash d-flex align-items-center"></i>
-                                <!-- Supprimer -->
                             </button>
                         </td>
                     </tr>
@@ -127,9 +123,6 @@
                             </div>
                         </form>
                     </div>
-                    <!-- <div class="modal-footer d-flex justify-content-start">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X</button>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -178,7 +171,6 @@
             setProgramSelected(e) {
                 this.programList = this.$store.state.programs;
                 console.log('this.programList', this.programList);
-                // console.log(e.target.dataset.programid)
                 console.log(e.currentTarget.getAttribute('data-programid'))
                 const pgSelected = this.programList.filter(program => program._id == e.currentTarget.getAttribute('data-programid'))[0];
                 console.log('pgSelected', pgSelected);
@@ -272,13 +264,6 @@
                         }});
 
                     console.log(response.data);
-
-
-                    // const updatedData = response.data.updatedData;
-                    // const updatedUser = Object.assign({...this.$store.state.user}, {...updatedData});
-
-                    // mise à jour de user dans le state
-                    // this.$store.dispatch('updatePrograms');
                     
                     alert('modification effectuée !');
 
@@ -294,11 +279,6 @@
                     } catch (error) {
                         console.log(error.response.data);
                     }
-
-
-                    // const payload = { ...updatedProgram, schedule: this.updateSchedule + ":00.000Z", _id: progId};
-                    // console.log("payload", payload);
-
 
                 } catch (error) {
                     console.log(error.response.data);

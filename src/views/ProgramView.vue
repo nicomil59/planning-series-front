@@ -71,8 +71,6 @@
                 const programs = this.$store.state.programs;
                 const program = programs.filter(program => program._id === this.id)[0];
 
-                // localStorage.setItem("program", JSON.stringify(program));
-
                 this.title = program.title;
                 this.season = program.season;
                 this.platform = program.platform;
@@ -118,28 +116,10 @@
                 return moment(time).format('LT')
             },
             goBack() {
-                // localStorage.removeItem('program');
                 this.$router.go(-1);
             }
         },
         beforeMount() {
-
-
-            // console.log(localStorage.getItem('program'))
-
-            // if (!localStorage.getItem('program')) {
-            //     console.log('Pas de programme dans le Storage')
-            //     this.getProgram();
-            // } else {
-            //     console.log('program from Storage', JSON.parse(localStorage.getItem('program')));
-            //     const program = JSON.parse(localStorage.getItem('program'));
-            //     this.title = program.title;
-            //     this.season = program.season;
-            //     this.platform = program.platform;
-            //     this.schedule = program.schedule;
-            //     this.countries = program.countries;
-            //     this.note = program.note;
-            // }
 
             console.log(this.$store.state.programs)
 
@@ -172,7 +152,6 @@
 
     .card-program {
         border-radius: 20px;
-        /* max-width: 900px; */
         border: 0;
     }
 

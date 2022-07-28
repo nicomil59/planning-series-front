@@ -102,8 +102,6 @@
                 try {
                     const response = await Api.get('programs');
 
-                    // console.log("Resultats appel getPrograms", response.data);
-
                     this.programs = response.data;
 
                     this.programs.sort( (a, b) => new Date(a.schedule) - new Date(b.schedule) );

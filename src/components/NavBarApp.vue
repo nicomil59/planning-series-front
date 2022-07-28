@@ -8,9 +8,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <!-- <li v-if="isProgram" class="nav-item">
-                        <button @click="goBack" class="btn btn-outline-secondary btn-goback">Retour</button>
-                    </li> -->
                     <li class="nav-item">
                         <router-link to="/about" class="btn btn-outline-secondary btn-about">À Propos</router-link>
                     </li>
@@ -29,25 +26,16 @@
             };
         },
         methods: {
-            // goBack() {
-            //     localStorage.removeItem('program');
-            //     this.$router.go(-1);
-            // }
+            
         },
         beforeMount() {
-            // if (localStorage.getItem('program')) {
-            //     this.isProgram = true;
-            //     console.log("y a un prog")
-            // } else {
-            //     console.log("y a pas de prog")
-            // }
+            
         }
     }
 </script>
 
 <style scoped>
     .navbar {
-        /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); */
         background-color: #f9f9f9 !important;
     }
 
@@ -68,8 +56,6 @@
     .btn-goback,
     .btn-about {
         border-radius: 24px;
-        /* border: 0; */
-        /* background-color: #0096C7; */
         color: #0077b6;
         border: 1px solid #0077b6;
     }
@@ -91,7 +77,6 @@
             display: flex;
             justify-content: center;
         }
-
 
     }
 </style>
