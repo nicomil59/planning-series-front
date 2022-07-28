@@ -77,9 +77,9 @@
         try {
           const response = await Api.get('programs');
 
-          console.log('*********** APPEL API ***********');
+          // console.log('*********** APPEL API ***********');
 
-          console.log("Resultats appel getPrograms", response.data);
+          // console.log("Resultats appel getPrograms", response.data);
 
           const programsFromAPI = response.data;
 
@@ -91,7 +91,7 @@
 
           this.programs = this.getProgramsFromToday(programsFromAPI);
 
-          console.log('Programmes à venir', this.programs);
+          // console.log('Programmes à venir', this.programs);
 
         } catch (error) {
           console.log(error);
@@ -105,13 +105,13 @@
 
       },
       handleFilter(searchTerm) {
-        console.log('payload', searchTerm);
+        // console.log('payload', searchTerm);
 
         const result = this.programs.filter(program => program.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
         this.search = searchTerm;
 
-        console.log(result);
+        // console.log(result);
 
         this.filteredList = result;
       },
@@ -121,7 +121,7 @@
         return result;
       },
       filterPreviously() {
-        console.log('Previously !!')
+        // console.log('Previously !!')
 
         // réinitialise la liste des programmes
         this.programs = this.getProgramsFromToday(this.allPrograms);
@@ -135,7 +135,7 @@
         this.programs = result;
       },
       filterPlusSeven() {
-        console.log('Plus Seven !!')
+        // console.log('Plus Seven !!')
 
         // réinitialise la liste des programmes
         this.programs = this.getProgramsFromToday(this.allPrograms);
@@ -148,7 +148,7 @@
         this.programs = result;
       },
       filterPlusMonth() {
-        console.log('Plus Month !!')
+        // console.log('Plus Month !!')
 
         // réinitialise la liste des programmes
         this.programs = this.getProgramsFromToday(this.allPrograms);
@@ -161,18 +161,18 @@
         this.programs = result;
       },
       filterByPlatform(e) {
-        console.log('Filter by Platform !!')
+        // console.log('Filter by Platform !!')
 
         let result = "";
 
-        console.log(e.target.innerText)
+        // console.log(e.target.innerText)
         const platform = e.target.innerText.toLowerCase();
 
         // réinitialise la liste des programmes
         this.programs = this.getProgramsFromToday(this.allPrograms);
 
         // filtre les programmes selon la plateforme sélectionnée
-        console.log('Plateforme: ', platform);
+        // console.log('Plateforme: ', platform);
 
         this.filterName = 'de ' + e.target.innerText;
 
@@ -199,17 +199,17 @@
     },
     async beforeMount() {
 
-      console.log(this.$store.state.programs)
+      // console.log(this.$store.state.programs)
 
       if (!this.$store.state.programs) {
 
-        console.log('Appel API pour récupérer tous les programmes')
+        // console.log('Appel API pour récupérer tous les programmes')
 
         this.getPrograms();
 
       } else {
 
-        console.log('Utilisation STATE pour récupérer tous les programmes')
+        // console.log('Utilisation STATE pour récupérer tous les programmes')
 
         this.getProgramsFromState();
       }

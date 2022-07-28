@@ -18,7 +18,7 @@
         methods: {
             handleSearch() {
 
-                console.log("Terme recherche dans SearchBar", this.search);
+                // console.log("Terme recherche dans SearchBar", this.search);
 
                 this.$emit('search', this.search);
                 

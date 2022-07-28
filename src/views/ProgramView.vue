@@ -63,10 +63,10 @@
         },
         methods: {
             getProgram() {
-                console.log(this.$route.params.id)
+                // console.log(this.$route.params.id)
                 this.id = this.$route.params.id;
 
-                console.log(this.$store.state.programs);
+                // console.log(this.$store.state.programs);
 
                 const programs = this.$store.state.programs;
                 const program = programs.filter(program => program._id === this.id)[0];
@@ -84,9 +84,9 @@
                 try {
                     const response = await Api.get(`programs/${this.id}`);
 
-                    console.log('*********** APPEL API ***********');
+                    // console.log('*********** APPEL API ***********');
 
-                    console.log("Resultat appel getProgram", response.data);
+                    // console.log("Resultat appel getProgram", response.data);
 
                     const programFromAPI = response.data;
 
@@ -121,17 +121,17 @@
         },
         beforeMount() {
 
-            console.log(this.$store.state.programs)
+            // console.log(this.$store.state.programs)
 
             if (!this.$store.state.programs) {
 
-                console.log('Appel API pour récupérer les infos sur le programme')
+                // console.log('Appel API pour récupérer les infos sur le programme')
 
                 this.getProgramFromAPI();
 
             } else {
 
-                console.log('Utilisation STATE pour récupérer les infos sur le programme')
+                // console.log('Utilisation STATE pour récupérer les infos sur le programme')
 
                 this.getProgram();
             }

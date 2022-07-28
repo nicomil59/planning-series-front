@@ -46,7 +46,7 @@
                 try {
                     const response = await Api.post('auth/login', dataInput);
 
-                    console.log(response.data);
+                    // console.log(response.data);
 
                     this.error = false;
                     this.errorMessage = '';
@@ -57,7 +57,7 @@
                     this.$router.push('/admin');
 
                 } catch (error) {
-                    console.log(error.response.data);
+                    // console.log(error.response.data);
                     this.error = true;
                     this.errorMessage = error.response.data.message;
                 }
