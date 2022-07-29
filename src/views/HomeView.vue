@@ -40,11 +40,20 @@
         <p v-if="filterName" class="text-center filter-name mt-4">Programmes {{ filterName }}</p>
         <p v-else class="text-center filter-name mt-4">Tous les programmes</p>
 
-        <ProgramList v-if="search" :programs="filteredList" class="pb-5" />
-        <ProgramList v-else :programs="programs" class="pb-5" />
+        <div v-if="isLoading" class="d-flex justify-content-center mb-4">
+          <div  class="spinner-grow" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+
+        <div v-else>
+          <ProgramList v-if="search" :programs="filteredList" class="pb-5" />
+          <ProgramList v-else :programs="programs" class="pb-5" />
+        </div>
+
       </div>
     </div>
-    <FooterCompo class="mx-auto"/>
+    <FooterCompo class="mx-auto" />
   </div>
 
 </template>
@@ -72,17 +81,25 @@
         programs: [],
         filteredList: [],
         search: '',
-        filterName: ''
+        filterName: '',
+        isLoading: false
       };
     },
     methods: {
       async getPrograms() {
         try {
+
+          this.isLoading = true;
+
           const response = await Api.get('programs');
 
           // console.log('*********** APPEL API ***********');
 
           // console.log("Resultats appel getPrograms", response.data);
+
+          if (response.data) {
+            this.isLoading = false;
+          }
 
           const programsFromAPI = response.data;
 
@@ -103,7 +120,7 @@
       getProgramsFromState() {
 
         this.allPrograms = this.$store.state.programs;
-        
+
         this.programs = this.getProgramsFromToday(this.allPrograms);
 
       },
@@ -216,7 +233,7 @@
 
         this.getProgramsFromState();
       }
-      
+
     }
   }
 </script>

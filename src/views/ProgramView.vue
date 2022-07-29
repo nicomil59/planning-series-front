@@ -1,7 +1,14 @@
 <template>
     <div>
         <NavBarApp />
-        <div class="container-fluid pt-4">
+
+        <div v-if="isLoading" class="d-flex justify-content-center mb-4">
+          <div  class="spinner-grow" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+
+        <div v-else class="container-fluid pt-4">
             <main class="mx-auto">
                 <div class="card card-program text-center">
                     <div class="card-wrapper">
@@ -27,7 +34,8 @@
                         class="bi bi-arrow-left"></i></button>
             </main>
         </div>
-        <FooterCompo class="mx-auto mt-3"/>
+
+        <FooterCompo class="mx-auto mt-3" />
     </div>
 </template>
 
@@ -58,7 +66,8 @@
                 schedule: null,
                 countries: [],
                 note: '',
-                id: ''
+                id: '',
+                isLoading: false
             };
         },
         computed: {
@@ -83,13 +92,19 @@
             },
             async getProgramFromAPI() {
                 this.id = this.$route.params.id;
-                
+
+                this.isLoading = true;
+
                 try {
                     const response = await Api.get(`programs/${this.id}`);
 
                     // console.log('*********** APPEL API ***********');
 
                     // console.log("Resultat appel getProgram", response.data);
+
+                    if (response.data) {
+                        this.isLoading = false;
+                    }
 
                     const programFromAPI = response.data;
 
@@ -104,7 +119,7 @@
                     console.log(error);
                 }
 
-                
+
             },
             formatTime(time) {
                 return moment(time).format('dddd') + ' ' + moment(time).format('LL') + ' à ' + moment(time).format('LT')
