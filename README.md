@@ -1,24 +1,17 @@
-# client
+# Planning Séries
 
-## Project setup
-```
-npm install
-```
+## Présentation
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Planning Séries est un site qui propose toutes les dates de sortie à venir des séries sur toutes les plateformes de streaming (Netflix, Disney+, Prime Video, etc.) et les chaînes de télé françaises (TNT, câble, etc.).
 
-### Compiles and minifies for production
-```
-npm run build
-```
+URL du site : [https://planning-series.netlify.app/](https://planning-series.netlify.app/)
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Technos
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+La partie Front est développée avec **Vue.js** et est hébergée via Netlify.
+La partie Back (API) est développée avec **Express.js** et est hébergée sur Heroku.
+Le SGBD utilisé est **MongoDB**.
+
+## Versions
+
+29/07/2022 : déploiement de la première version de l'app.
