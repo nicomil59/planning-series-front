@@ -117,6 +117,10 @@
 
                 } catch (error) {
                     console.log(error);
+                    console.log(error.message.includes('404'))
+                    if(error.message.includes('404')) {
+                        this.$router.push('/notFound');
+                    }
                 }
 
 
