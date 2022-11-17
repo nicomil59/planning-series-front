@@ -9,9 +9,10 @@ URL du site : [https://planning-series.netlify.app/](https://planning-series.net
 ## Technos
 
 La partie Front est développée avec **Vue.js** et est hébergée via Netlify.  
-La partie Back (API) est développée avec **Express.js** et est hébergée sur Heroku.  
+La partie Back (API) est développée avec **Express.js** et est hébergée sur Cyclic.  
 Le SGBD utilisé est **MongoDB**.
 
 ## Versions
 
 29/07/2022 : déploiement de la première version de l'app.
+17/11/2022 : changement d'hébergeur de l'API (passage de Heroku à Cyclic).
